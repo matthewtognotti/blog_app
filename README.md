@@ -1,4 +1,4 @@
-# A Simple CRUD App
+# a simple crud app
 
 A full-stack blog application built with FastAPI for the backend and Next.js for the frontend, using Supabase as the database.
 
