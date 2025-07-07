@@ -5,7 +5,7 @@ import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 
 export type Post = {
-  id: number;
+  id: string;
   title: string;
   content: string;
   created_at: string;
@@ -37,6 +37,10 @@ export default function Home() {
     setPosts([newPost, ...posts]);
   };
 
+  const handlePostDeleted = (deletedPostId: string) => {
+    setPosts(posts.filter((post) => post.id !== deletedPostId));
+  };
+
   return (
     <main className="p-4">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -45,7 +49,7 @@ export default function Home() {
         {loading && <p>Loading posts...</p>}
         {error && <p className="text-red-500">❌ {error}</p>}
         {!loading && posts.length === 0 && <p>No posts yet.</p>}
-        <PostList posts={posts} />
+        <PostList posts={posts} onPostDeleted={handlePostDeleted} />
       </div>
     </main>
   );

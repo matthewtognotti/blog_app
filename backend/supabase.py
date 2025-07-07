@@ -35,3 +35,15 @@ def create_post(title: str, content: str):
     print("Response:", response.status_code, response.text)
     response.raise_for_status()
     return response.json()
+
+
+def delete_post(post_id: str):
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+    }
+    response = httpx.delete(
+        f"{SUPABASE_URL}/rest/v1/posts?id=eq.{post_id}", headers=headers
+    )
+    response.raise_for_status()
+    return response
