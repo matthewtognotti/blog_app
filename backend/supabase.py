@@ -34,7 +34,7 @@ def create_post(title: str, content: str):
     )
     print("Response:", response.status_code, response.text)
     response.raise_for_status()
-    return response.json()
+    return response.json()[0] if response.json() else None
 
 
 def delete_post(post_id: str):
@@ -47,3 +47,20 @@ def delete_post(post_id: str):
     )
     response.raise_for_status()
     return response
+
+
+def update_post(post_id: str, title: str, content: str):
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json",
+        "Prefer": "return=representation",
+    }
+    payload = {"title": title, "content": content}
+    response = httpx.patch(
+        f"{SUPABASE_URL}/rest/v1/posts?id=eq.{post_id}",
+        headers=headers,
+        json=payload,
+    )
+    response.raise_for_status()
+    return response.json()[0] if response.json() else None
