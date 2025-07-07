@@ -29,7 +29,7 @@ export default function PostForm({ onPostCreated }: PostFormProps) {
 
       if (!res.ok) throw new Error("Failed to create post");
 
-      const [newPost] = await res.json();
+      const newPost = await res.json();
       onPostCreated(newPost);
       setTitle("");
       setContent("");
